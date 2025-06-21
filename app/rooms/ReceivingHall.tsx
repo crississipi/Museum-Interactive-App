@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, useLoader } from '@react-three/fiber';
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import Scene from './Scene';
 import { RGBELoader } from 'three-stdlib';
 import * as THREE from 'three'
