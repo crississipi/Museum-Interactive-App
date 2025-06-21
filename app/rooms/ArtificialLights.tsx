@@ -47,7 +47,7 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
   const innerRadius = outerRadius - innerRad;
 
   const glowTexture = useMemo(() => createLightGlow('#ffd6a0', 'radial'), []);
-  const glowHighlight = useMemo(() => createLightGlow('#ffd6a0', 'horizontal'), []);
+
   const outerGeometry = useMemo(
     () => new THREE.CylinderGeometry(outerRadius, outerRadius, height, 64, 1, true),
     [outerRadius, height]

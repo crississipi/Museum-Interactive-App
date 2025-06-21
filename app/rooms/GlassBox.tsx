@@ -1,6 +1,5 @@
 import { GlassBoxProps } from '@/types'
 import React from 'react'
-import * as THREE from 'three'
 
 const GlassBox = ({ position, rotation, size }: GlassBoxProps) => {
   const [width, height, depth] = size
