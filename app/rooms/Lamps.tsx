@@ -17,7 +17,7 @@ interface thisProps {
 }
 
 type LampProps = LightPosition & thisProps;
-const Lamps: React.FC<LampProps>= ({ position, color, lampType, rotation, lampAngle, lampPos, distance, attenuation, penumbra, intensity, anglePower, upper }) => {
+const Lamps: React.FC<LampProps>= ({ position, rotation, lampAngle, lampPos, distance, attenuation, penumbra, intensity, anglePower, upper }) => {
 
 
   return (

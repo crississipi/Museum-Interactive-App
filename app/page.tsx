@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ReceivingHall } from "./rooms";
 
 export default function Home() {

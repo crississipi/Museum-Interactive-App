@@ -29,8 +29,6 @@ const Table = ({ position, rotation, size, display, displayPos, displayScale }: 
   })
 
   const [hovered, setHovered] = useState(false)
-  const [z, setZ] = useState(0);
-  const [x, setX] = useState(0);
 
   const { scale } = useSpring({
     scale: hovered ? 1.05 : 1,
@@ -58,7 +56,6 @@ const Table = ({ position, rotation, size, display, displayPos, displayScale }: 
     object.getWorldPosition(target);
 
     // Calculate camera position in front of the table
-    console.log(x, target.y, z);
     const cameraPosition = new THREE.Vector3(
       identifyX(target.x),
       target.y + 0.8, // Slightly above the table

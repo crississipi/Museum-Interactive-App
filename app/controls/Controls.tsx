@@ -1,15 +1,15 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three';
-import { useEffect, useRef } from 'react';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls.js';
 
-
 const Controls = () => {
-const mountRef = useRef<HTMLDivElement>(null);
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const mount = mountRef.current; // ✅ Capture the current ref value safely
+
     // Scene Setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xa0a0a0);
@@ -20,11 +20,11 @@ const mountRef = useRef<HTMLDivElement>(null);
       0.1,
       1000
     );
-    camera.position.set(0, 1.6, 5); // human height
+    camera.position.set(0, 1.6, 5); // Human eye level
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current?.appendChild(renderer.domElement);
+    mount?.appendChild(renderer.domElement); // Use stable ref
 
     // Lighting
     const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
@@ -44,7 +44,7 @@ const mountRef = useRef<HTMLDivElement>(null);
     floor.receiveShadow = true;
     scene.add(floor);
 
-    // Sample Object
+    // Sample Cube
     const cube = new THREE.Mesh(
       new THREE.BoxGeometry(1, 1, 1),
       new THREE.MeshStandardMaterial({ color: 0x00ff00 })
@@ -64,7 +64,7 @@ const mountRef = useRef<HTMLDivElement>(null);
     const move = { forward: false, backward: false, left: false, right: false };
     const velocity = new THREE.Vector3();
     const direction = new THREE.Vector3();
-    const speed = 4; // units per second
+    const speed = 4;
 
     const keyDownHandler = (event: KeyboardEvent) => {
       switch (event.code) {
@@ -89,7 +89,7 @@ const mountRef = useRef<HTMLDivElement>(null);
 
     const clock = new THREE.Clock();
 
-    // Animate
+    // Animation Loop
     const animate = () => {
       requestAnimationFrame(animate);
 
@@ -109,7 +109,7 @@ const mountRef = useRef<HTMLDivElement>(null);
         controls.moveRight(velocity.x);
         controls.moveForward(velocity.z);
 
-        // Lock camera to ground height
+        // Lock camera height
         camera.position.y = -1;
       }
 
@@ -118,18 +118,20 @@ const mountRef = useRef<HTMLDivElement>(null);
 
     animate();
 
-    // Clean up
+    // Cleanup
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
       document.removeEventListener('keyup', keyUpHandler);
       renderer.dispose();
-      mountRef.current?.removeChild(renderer.domElement);
+      if (mount) {
+        mount.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
   return (
     <div ref={mountRef} className="w-screen h-screen overflow-hidden" />
-  )
-}
+  );
+};
 
-export default Controls
+export default Controls;

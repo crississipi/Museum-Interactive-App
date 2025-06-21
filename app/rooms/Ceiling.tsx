@@ -1,12 +1,11 @@
 "use client"
 
 import { CeilingProps } from '@/types'
-import { createLightGlow } from '@/utils/LightGlow';
 import { useTexture } from '@react-three/drei'
-import React, { useMemo } from 'react'
+import React from 'react'
 import * as THREE from 'three';
 
-const Ceiling = ({ height, width, position, rotation, panelWidth, panelHeight }: CeilingProps) => {
+const Ceiling = ({ height, width, position, rotation }: CeilingProps) => {
   const [
     colorMapBase,
     normalMapBase,

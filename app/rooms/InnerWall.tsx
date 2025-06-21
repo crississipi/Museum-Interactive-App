@@ -4,7 +4,7 @@ import React from 'react'
 import * as THREE from 'three';
 
 type InnerWallProps = WallProps & BaseProps;
-const InnerWall: React.FC<InnerWallProps>= ({position,rotation,width,height,depth, x, y, rightBasePos, leftBasePos, baseWidth}) => {
+const InnerWall: React.FC<InnerWallProps>= ({position,rotation,width,height,depth, rightBasePos, leftBasePos, baseWidth}) => {
   const doorWidth = 6;
   const doorHeight = 7;
   const archHeight = 0.1;

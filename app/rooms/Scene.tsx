@@ -46,7 +46,7 @@ const Scene = () => {
           leftBasePos: [6.5, 0, 0],
           baseWidth: 7.2
         },
-        // Left wall with arched cutout
+        
         { x: 12, 
           y: 4, 
           position: [-20, 5, 10], 
@@ -58,7 +58,7 @@ const Scene = () => {
           leftBasePos: [11.5, 0, 0],
           baseWidth: 17.2
         },
-        // Right wall with arched cutout
+        
         { x: 12, 
           y: 4, 
           position: [20, 5, 10], 
@@ -212,7 +212,7 @@ const Scene = () => {
         <Baseboard key={i} {...props} />
       ))}
 
-      //main room
+      
       <Table 
         position={[3.5,-3.3,-7]} 
         rotation={[0,0,0]} 
@@ -246,7 +246,7 @@ const Scene = () => {
         displayScale={1}
       />
 
-      //left room
+      
       <Table 
         position={[-30,-3.3, 25]} 
         rotation={[0,Math.PI/2,0]} 
@@ -258,7 +258,7 @@ const Scene = () => {
         size={[5,2.5,15]}
       />
 
-      //right room
+      
       <Table 
         position={[30.5,-3.3, 25]} 
         rotation={[0,Math.PI/2,0]} 
@@ -270,7 +270,7 @@ const Scene = () => {
         size={[5,2.5,15]}
       />
 
-      //back room
+      
       <Table 
         position={[-22,-3.3,-28]} 
         rotation={[0, Math.PI/2, 0]} 
@@ -308,7 +308,7 @@ const Scene = () => {
       <LightPole rotation={[0, 0, Math.PI/2]} position={[-30, 14, 28]} height={20}/>
       <LightPole rotation={[0, Math.PI/2, Math.PI/2]} position={[-21.5, 14, 10]} height={40}/>
 
-      //main room
+      
       <Lamps 
         position={[-10, 14.3, 10]} 
         color="" 
@@ -352,7 +352,7 @@ const Scene = () => {
         anglePower={10}
       />
 
-      //left room
+      
       <Lamps 
         position={[30.5, 14.3, 28]} 
         color="" 
@@ -372,7 +372,7 @@ const Scene = () => {
         upper={true}
       />
 
-      //right room
+
       <Lamps 
         position={[-30.5, 14.3, 28]} 
         color="" 

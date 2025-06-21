@@ -3,7 +3,6 @@
 import { PanelProps } from '@/types'
 import { useTexture } from '@react-three/drei'
 import React from 'react'
-import * as THREE from 'three';
 import ArtificialLights from './ArtificialLights';
 
 const PanelBoard = ({ position, size }: PanelProps) => {

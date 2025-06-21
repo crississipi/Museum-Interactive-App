@@ -1,8 +1,4 @@
 'use client'
-
-import { useThree, useFrame } from '@react-three/fiber'
-import { useState } from 'react'
-import * as THREE from 'three'
 import { useCameraStore } from './CameraStore'
 
 function CameraTracker() {

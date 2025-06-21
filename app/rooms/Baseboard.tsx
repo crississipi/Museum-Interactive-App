@@ -5,7 +5,7 @@ import { useTexture } from '@react-three/drei'
 import React from 'react'
 import * as THREE from 'three';
 
-const Baseboard = ({ position, size = [1, 0.2, 0.1], rotation = [0, 0, 0], color = '#FFD700'}: BaseboardProps) => {
+const Baseboard = ({ position, size = [1, 0.2, 0.1], rotation = [0, 0, 0] }: BaseboardProps) => {
   const [
     colorMap,
     displacementMap,

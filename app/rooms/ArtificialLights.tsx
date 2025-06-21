@@ -2,9 +2,9 @@
 
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { Group } from 'three';
-import { createLightGlow } from '@/utils/LightGlow';
 import * as THREE from 'three';
 import { Plane } from '@react-three/drei';
+import { createLightGlow } from '@/utils/LightGlow';
 import { ArtificialLightProps } from '@/types';
 import { BloomSceneContext } from './LightingEffects';
 
@@ -13,28 +13,26 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
   const bloomScene = useContext(BloomSceneContext);
 
   useEffect(() => {
-    if (ref.current && bloomScene) {
-      // Add to both scenes
-      const clone = ref.current.clone();
+    const lightGroup = ref.current; // ✅ Fix: Capture ref value at the time of effect run
+
+    if (lightGroup && bloomScene) {
+      const clone = lightGroup.clone();
       clone.userData.isLightClone = true;
       bloomScene.add(clone);
-      
-      // Enable both layers for the original
-      ref.current.traverse((obj) => {
-        obj.layers.enable(0); // Main scene
-        obj.layers.enable(1); // Bloom scene
+
+      lightGroup.traverse((obj) => {
+        obj.layers.enable(0);
+        obj.layers.enable(1);
       });
-      
-      // Set clone to bloom layer only
+
       clone.traverse((obj) => {
-        obj.layers.set(1); // Bloom scene only
+        obj.layers.set(1);
       });
     }
 
     return () => {
-      if (ref.current && bloomScene) {
-        // Find and remove all children that match our light
-        bloomScene.children.forEach(child => {
+      if (lightGroup && bloomScene) {
+        bloomScene.children.forEach((child) => {
           if (child.userData?.isLightClone) {
             bloomScene.remove(child);
           }
@@ -54,41 +52,45 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
     () => new THREE.CylinderGeometry(outerRadius, outerRadius, height, 64, 1, true),
     [outerRadius, height]
   );
-  
-  const bottomCap = useMemo(() => new THREE.RingGeometry(innerRadius, outerRadius, 64), [innerRadius, outerRadius]);
-  
+
+  const bottomCap = useMemo(() => new THREE.RingGeometry(innerRadius, outerRadius, 64), [
+    innerRadius,
+    outerRadius,
+  ]);
+
   return (
     <group ref={ref} position={position} rotation={rotation}>
       {lightType === 'main' && (
         <>
-          <group userData={{solid: true}} rotation={[0, 0, 0]}>
+          <group userData={{ solid: true }} rotation={[0, 0, 0]}>
             {/* Outer wall */}
             <mesh geometry={outerGeometry}>
-              <meshPhysicalMaterial 
+              <meshPhysicalMaterial
                 emissive="#ffd6a0"
                 emissiveIntensity={3}
                 roughness={0.3}
                 metalness={-1}
                 reflectivity={1}
-                color="#ffbb66" 
-                side={THREE.DoubleSide} 
+                color="#ffbb66"
+                side={THREE.DoubleSide}
               />
             </mesh>
-      
+
             {/* Bottom cap */}
             <mesh geometry={bottomCap} rotation={[Math.PI / 2, 0, 0]} position={[0, -height / 2, 0]}>
-              <meshPhysicalMaterial 
+              <meshPhysicalMaterial
                 emissive="#ffd6a0"
                 emissiveIntensity={3}
                 roughness={0.3}
                 metalness={-1}
                 reflectivity={1}
-                color="#ffbb66" 
-                side={THREE.DoubleSide} 
+                color="#ffbb66"
+                side={THREE.DoubleSide}
               />
             </mesh>
           </group>
-          <Plane args={[8, 8]} position={[0, -0.01, 0]} rotation={[Math.PI/2, 0, 0]}>
+
+          <Plane args={[8, 8]} position={[0, -0.01, 0]} rotation={[Math.PI / 2, 0, 0]}>
             <meshBasicMaterial
               map={glowTexture}
               transparent
@@ -99,6 +101,7 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
           </Plane>
         </>
       )}
+
       {lightType === 'highlight' && (
         <Plane args={lightSize} rotation={[0, 0, 0]}>
           <meshBasicMaterial
@@ -110,8 +113,9 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
           />
         </Plane>
       )}
+
       {lightType === 'display' && (
-        <mesh position={[0, 1, 0]} rotation={[0,0,0]}>
+        <mesh position={[0, 1, 0]} rotation={[0, 0, 0]}>
           <cylinderGeometry args={[0.1, 0.1, 3, 32]} />
           <meshPhysicalMaterial
             color="#ffffff"
@@ -125,6 +129,6 @@ const ArtificialLights = ({ position, rotation, lightType, lightSize }: Artifici
       )}
     </group>
   );
-}
+};
 
 export default ArtificialLights;

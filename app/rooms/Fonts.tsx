@@ -1,6 +1,6 @@
 'use client'
 import { FontProps } from '@/types'
-import { Text3D, Center } from '@react-three/drei'
+import { Text3D } from '@react-three/drei'
 
 const Fonts = ({ text, color, size, height, position, rotation, letterSpacing }: FontProps) => {
   return (
